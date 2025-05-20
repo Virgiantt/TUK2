@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Website resmi CoffeShop - tempat terbaik menikmati kopi dan suasana nyaman di kota Anda.">
+  <meta name="keywords" content="kopi, coffeshop, tempat nongkrong">
+  <title>CoffeShop</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Verdana, sans-serif;
+      background-color: #FFFFFF;
+      color: #684B30;
+    }
+    header, footer {
+      height: 96px;
+      background-color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    header nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #684B30;
+      padding: 8px;
+      transition: background 0.3s;
+    }
+    header nav a:hover {
+      background-color: #FFEACE;
+      border-radius: 5px;
+    }
+    #logo {
+      height: 60px;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    section {
+      padding: 40px 20px;
+    }
+    #home {
+      padding: 0;
+    }
+    .banner {
+      width: 100%;
+      height: 400px;
+      background-image: url('banner.jpg');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #FFFFFF;
+      text-shadow: 1px 1px 3px #000;
+    }
+    .banner h1 {
+      font-size: 24pt;
+    }
+    .banner p {
+      font-size: 16pt;
+    }
+    .resume {
+      max-width: 30%;
+      margin: 20px auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .resume-item {
+      text-align: center;
+      width: 100%;
+    }
+    .resume-item img {
+      width: 100%;
+      height: auto;
+      cursor: pointer;
+    }
+    .resume-item h3 {
+      font-size: 14pt;
+      color: #9D7C5F;
+    }
+    .content-wrapper {
+      display: flex;
+    }
+    .sidebar {
+      width: 25%;
+      padding: 20px;
+      background-color: #FFEACE;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .testimoni {
+      font-style: italic;
+      color: #684B30;
+    }
+    .main-content {
+      width: 75%;
+      padding: 20px;
+    }
+    .section-title {
+      font-size: 16pt;
+    }
+    .subtitle {
+      font-size: 14pt;
+    }
+    .slider {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .slider img {
+      width: 200px;
+      height: 150px;
+    }
+    #tentang {
+      background-color: #FFEACE;
+      text-align: center;
+    }
+    iframe, video {
+      max-width: 50%;
+      height: auto;
+      margin: 20px auto;
+      display: block;
+    }
+    #kontak .form-row {
+      display: flex;
+      gap: 20px;
+    }
+    .col1, .col2 {
+      flex: 1;
+    }
+    .col1 {
+      flex: 2;
+    }
+    .subscribe {
+      font-size: 12pt;
+      margin-top: 10px;
+    }
+    .subscribe input[type="text"] {
+      padding: 5px;
+      margin-right: 5px;
+    }
+    .subscribe button {
+      background-color: #9D7C5F;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+    }
+    footer {
+      background-color: #9D7C5F;
+      color: #FFEACE;
+      font-size: 12pt;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo CoffeShop" id="logo">
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#menu">Menu</a>
+      <a href="#tentang">Tentang</a>
+      <a href="#kontak">Kontak</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home">
+      <div class="banner">
+        <h1>CoffeShop</h1>
+        <p>Tempat terbaik untuk ngopi</p>
+      </div>
+      <div class="resume">
+        <div class="resume-item" onclick="location.href='#menu'">
+          <img src="menu.jpg" alt="Menu">
+          <h3>Menu</h3>
+        </div>
+        <div class="resume-item" onclick="location.href='#tentang'">
+          <img src="tentang.jpg" alt="Tentang">
+          <h3>Tentang</h3>
+        </div>
+        <div class="resume-item" onclick="location.href='#kontak'">
+          <img src="kontak.jpg" alt="Kontak">
+          <h3>Kontak</h3>
+        </div>
+      </div>
+    </section>
+
+    <div class="content-wrapper">
+      <aside class="sidebar">
+        <div class="testimoni">"Kopi terenak yang pernah saya coba!" - Ana</div>
+        <div class="testimoni">"Tempatnya cozy dan pelayanannya ramah." - Budi</div>
+        <div class="testimoni">"Saya selalu kembali ke sini setiap minggu." - Clara</div>
+      </aside>
+      <div class="main-content">
+        <section id="menu">
+          <h2 class="section-title">Menu</h2>
+          <h3 class="subtitle">Makanan</h3>
+          <div class="slider">
+            <img src="makanan1.jpg">
+            <img src="makanan2.jpg">
+            <img src="makanan3.jpg">
+            <img src="makanan4.jpg">
+            <img src="makanan5.jpg">
+            <img src="makanan6.jpg">
+          </div>
+          <h3 class="subtitle">Minuman</h3>
+          <div class="slider">
+            <img src="minuman1.jpg">
+            <img src="minuman2.jpg">
+            <img src="minuman3.jpg">
+            <img src="minuman4.jpg">
+            <img src="minuman5.jpg">
+            <img src="minuman6.jpg">
+          </div>
+        </section>
+
+        <section id="tentang">
+          <h2 class="section-title">Tentang</h2>
+          <p>CoffeShop berdiri sejak 2020 dengan tujuan menyajikan kopi terbaik dan suasana yang nyaman untuk semua kalangan.</p>
+          <video controls>
+            <source src="profil.mp4" type="video/mp4">
+            Video tidak tersedia.
+          </video>
+        </section>
+
+        <section id="kontak">
+          <div class="form-row">
+            <div class="col1">
+              <h3>Kopi Kita Aja</h3>
+              <p>Jl. Kopi No. 123, Jakarta</p>
+              <p>Telp: 0812-3456-7890</p>
+              <p>
+                <img src="ig.png" alt="Instagram" width="24"> @coffeshop<br>
+                <img src="fb.png" alt="Facebook" width="24"> CoffeShop
+              </p>
+              <div class="subscribe">
+                Subscribe newsletter kami untuk tetap terupdate<br>
+                <input type="text" placeholder="Email Anda">
+                <button>Subscribe</button>
+              </div>
+            </div>
+            <div class="col2">
+              <iframe src="https://maps.google.com" width="100%" height="200"></iframe>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 CoffeShop. All rights reserved.
+  </footer>
+</body>
+</html>

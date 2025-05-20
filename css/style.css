@@ -1,0 +1,30 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+nav a {
+    font-weight: 600;
+    color: #333;
+}
+
+nav a:hover {
+    color: #007bff;
+}
+
+.blockquote {
+    font-size: 0.9rem;
+    border-left: 4px solid #ccc;
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+
+/* Optional: Tambahan gaya untuk tampilan ringkasan */
+#home h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #6f4e37; /* Warna kopi */
+}
