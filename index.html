@@ -20,6 +20,11 @@
     <header>
       <nav>
         <img src="assets/caffe.png" alt="Logo CoffeShop" />
+        <div class="burger-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
         <div class="nav-links">
           <a href="#home" class="active">Home</a>
           <a href="#menu">Menu</a>
@@ -301,5 +306,10 @@
   window.addEventListener("DOMContentLoaded", () => {
     autoSlideCarouselInfinite(".makanan-track", ".makanan-dots");
     autoSlideCarouselInfinite(".minuman-track", ".minuman-dots");
+  });
+
+  document.querySelector(".burger-menu").addEventListener("click", function () {
+    this.classList.toggle("active");
+    document.querySelector(".nav-links").classList.toggle("active");
   });
 </script>
