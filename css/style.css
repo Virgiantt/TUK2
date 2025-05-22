@@ -165,6 +165,7 @@ nav img {
 
 .menu-section {
   text-align: center;
+  margin-left: 200px;
   padding-left: 100px;
   margin-bottom: 40px; /* tambahkan ini jika belum ada */
 }
@@ -176,14 +177,14 @@ nav img {
 }
 
 .carousel-wrapper {
-  width: 100%;
   overflow: hidden;
   position: relative;
+  margin-top: 10px;
 }
 
 .carousel-track {
   display: flex;
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in;
   gap: 20px;
   min-width: 100%;
 }
@@ -239,7 +240,7 @@ nav img {
 
 .card {
   width: 150px;
-  height: 200px; /* tambah tinggi supaya muat gambar + teks */
+  height: 200px;
   background-color: #f4e1d2;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -304,6 +305,7 @@ nav img {
 
 .tentang-section {
   background-color: #6c3e22;
+  margin-left: 140px;
   border-radius: 10px;
   width: 1000px;
   text-align: center;
@@ -311,6 +313,10 @@ nav img {
   flex-direction: column;
   align-items: center;
   padding: 20px 10px;
+}
+
+.tentang-section iframe {
+  width: 800px;
 }
 
 .tentang-section h3,
@@ -332,93 +338,112 @@ nav img {
   position: relative;
 } */
 
-footer {
-  background-color: #fff; /* optional */
+footer#kontak {
+  background-color: #684b30;
+  color: #ffeace;
   padding: 40px 20px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
-  gap: 40px;
-  flex-wrap: wrap; /* agar responsif */
+  gap: 30px;
+  /* border-radius: 10px 10px 0 0; */
 }
 
-.footer-info {
+footer#kontak .footer-info {
   flex: 1 1 300px;
-  color: #684b30;
+  max-width: 400px;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
-.footer-info strong {
-  display: block;
-  font-size: 1.5rem;
+footer#kontak .footer-info strong {
+  font-size: 24px;
   margin-bottom: 10px;
+  display: block;
 }
 
-.footer-info p,
-.footer-info a {
-  margin: 5px 0;
-  color: #6c3e22;
+footer#kontak .footer-info p {
+  margin: 8px 0;
 }
 
-.subscribe {
-  flex: 1 1 300px;
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
+footer#kontak .footer-info a {
+  color: #ffeace;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-.subscribe input[type="text"] {
-  padding: 10px;
-  width: calc(100% - 100px);
-  border: 1px solid #ccc;
-  border-radius: 5px 0 0 5px;
-  font-size: 1rem;
+footer#kontak .footer-info a:hover {
+  color: #d9b382;
 }
 
-.subscribe button {
-  padding: 10px 20px;
-  border: none;
-  background-color: #684b30;
-  color: white;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-weight: bold;
+footer#kontak .footer-info a i {
+  margin-right: 8px;
+  vertical-align: middle;
 }
 
-.bottom-box {
-  margin-top: 20px;
-  width: 100%;
-  height: 150px;
-  background-color: #ccc;
-}
-
+/* Subscribe + Map container */
 .subscribe-map-container {
+  flex: 2 1 500px;
   display: flex;
-  gap: 20px; /* jarak antara subscribe dan iframe */
-  align-items: flex-start;
-  flex-wrap: wrap; /* agar responsive, kalau terlalu kecil turun ke bawah */
+  flex-direction: column;
+  gap: 20px;
 }
 
-.subscribe input {
-  flex-grow: 1;
-  padding: 8px;
-  font-size: 1rem;
+footer#kontak .subscribe {
+  display: flex;
+  gap: 10px;
 }
 
-.subscribe button:hover {
-  background-color: #6c3e22;
+footer#kontak .subscribe input[type="text"] {
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  outline: none;
 }
 
+footer#kontak .subscribe button {
+  background-color: #d9b382;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 30px;
+  color: #684b30;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+footer#kontak .subscribe button:hover {
+  background-color: #c79f5a;
+}
+
+/* Map iframe */
 .subscribe-map-container iframe {
   width: 100%;
-  height: 200px; /* disesuaikan agar tidak terlalu besar */
-  border: 0;
-  align-self: center;
-  border-radius: 10px;
+  height: 300px;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  object-fit: cover;
 }
 
-.footer-copyright {
-  background-color: #684b30;
-  text-align: center;
-  padding-top: 20px;
-  font-size: 14px;
+/* Responsive */
+@media (max-width: 768px) {
+  footer#kontak {
+    flex-direction: column;
+    padding: 30px 15px;
+  }
+
+  .subscribe-map-container {
+    flex-direction: column;
+  }
+
+  footer#kontak .footer-info {
+    max-width: 100%;
+  }
+
+  .subscribe-map-container iframe {
+    height: 250px;
+  }
 }

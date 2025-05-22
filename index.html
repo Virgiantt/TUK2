@@ -58,7 +58,7 @@
                 <span>Nasi Goreng</span>
               </div>
               <div class="card">
-                <img src="assets/banner.jpgl alt= " alt="Roti Bakar" />
+                <img src="assets/banner.jpg" alt="Roti Bakar" />
                 <span>Roti Bakar</span>
               </div>
               <div class="card">
@@ -66,7 +66,7 @@
                 <span>Pisang Coklat</span>
               </div>
               <div class="card">
-                <img src="assets/banner.jpgg alt= " alt="Kentang Goreng" />
+                <img src="assets/banner.jpg" alt="Kentang Goreng" />
                 <span>Kentang Goreng</span>
               </div>
               <div class="card">
@@ -85,11 +85,11 @@
           <div class="carousel-wrapper">
             <div class="carousel-track minuman-track">
               <div class="card">
-                <img src="assets/banner.jpg= " alt="Kopi Hitam" />
+                <img src="assets/banner.jpg" alt="Kopi Hitam" />
                 <span>Kopi Hitam</span>
               </div>
               <div class="card">
-                <img src="assets/banner.jpg= " alt="Cappuccino" />
+                <img src="assets/banner.jpg" alt="Cappuccino" />
                 <span>Cappuccino</span>
               </div>
               <div class="card">
@@ -219,60 +219,87 @@
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
+        <div style="text-align: center; margin-right: 300px">
+          &copy; 2025 Kopi Kita. All rights reserved
+        </div>
       </div>
     </footer>
-    <div
-      class="footer-copyright"
-      style="text-align: center; margin-top: 20px; color: #ffeace"
-    >
-      &copy; 2025 Kopi Kita. All rights reserved.
-    </div>
   </body>
 </html>
 
 <script>
-  function autoSlideCarousel(trackSelector, dotsSelector) {
+  function autoSlideCarouselInfinite(trackSelector, dotsSelector) {
     const track = document.querySelector(trackSelector);
-    const cards = track.children;
+    const cards = Array.from(track.children);
     const cardCount = cards.length;
-    const visibleCards = 1;
+    const cardWidth = cards[0].offsetWidth;
+    const gap = parseInt(getComputedStyle(track).gap) || 0;
+
+    // Clone all cards dan append ke track untuk loop seamless
+    cards.forEach((card) => {
+      const clone = card.cloneNode(true);
+      track.appendChild(clone);
+    });
+
     let currentIndex = 0;
+    let totalCards = track.children.length; // dua kali lipat sekarang karena ada clone
 
     const dotsContainer = document.querySelector(dotsSelector);
-    const totalSlides = cardCount;
-
     dotsContainer.innerHTML = "";
-    for (let i = 0; i < totalSlides; i++) {
+
+    // Buat dot sebanyak card asli (bukan clone)
+    for (let i = 0; i < cardCount; i++) {
       const dot = document.createElement("span");
       dot.classList.add("dot");
       if (i === 0) dot.classList.add("active");
       dot.addEventListener("click", () => {
         currentIndex = i;
-        updateCarousel();
+        updateCarousel(true);
       });
       dotsContainer.appendChild(dot);
     }
 
-    const updateCarousel = () => {
-      const offset =
-        currentIndex *
-        (cards[0].offsetWidth + parseInt(getComputedStyle(track).gap));
+    function updateCarousel(jumpToIndex = false) {
+      // Hitung offset berdasarkan currentIndex, hanya dengan card asli
+      let offset = currentIndex * (cardWidth + gap);
 
+      track.style.transition = jumpToIndex ? "none" : "transform 0.5s ease";
       track.style.transform = `translateX(-${offset}px)`;
-      dotsContainer.querySelectorAll(".dot").forEach((dot, i) => {
-        dot.classList.toggle("active", i === currentIndex);
-      });
-    };
 
-    setInterval(() => {
+      // Update dots active hanya untuk index asli
+      dotsContainer.querySelectorAll(".dot").forEach((dot, i) => {
+        dot.classList.toggle("active", i === currentIndex % cardCount);
+      });
+    }
+
+    function moveNext() {
       currentIndex++;
-      if (currentIndex >= totalSlides) currentIndex = 0;
-      updateCarousel();
-    }, 3000);
+
+      // Ketika sudah sampai setengah (akhir cards asli), langsung loncat ke awal tanpa animasi
+      if (currentIndex === cardCount) {
+        // pindah ke clone pertama (yang ke-(cardCount)), tanpa animasi
+        updateCarousel(true);
+
+        // segera setelah tanpa animasi, pindah ke posisi pertama dengan animasi lagi
+        // kita paksa browser rerender dulu dengan setTimeout 50ms supaya transisi bekerja
+        setTimeout(() => {
+          currentIndex = 0;
+          updateCarousel(false);
+        }, 50);
+      } else {
+        updateCarousel(false);
+      }
+    }
+
+    // Mulai interval
+    setInterval(moveNext, 3000);
+
+    // tampilkan posisi awal
+    updateCarousel(true);
   }
 
   window.addEventListener("DOMContentLoaded", () => {
-    autoSlideCarousel(".makanan-track", ".makanan-dots");
-    autoSlideCarousel(".minuman-track", ".minuman-dots");
+    autoSlideCarouselInfinite(".makanan-track", ".makanan-dots");
+    autoSlideCarouselInfinite(".minuman-track", ".minuman-dots");
   });
 </script>
