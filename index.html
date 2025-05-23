@@ -60,27 +60,45 @@
             <div class="carousel-track makanan-track">
               <div class="card">
                 <img src="assets/banner.jpg" alt="Nasi Goreng" />
-                <span>Nasi Goreng</span>
+                <div class="card-content">
+                  <span>Nasi Goreng</span>
+                  <div class="price">Rp 25.000</div>
+                </div>
               </div>
               <div class="card">
                 <img src="assets/banner.jpg" alt="Roti Bakar" />
-                <span>Roti Bakar</span>
+                <div class="card-content">
+                  <span>Roti Bakar</span>
+                  <div class="price">Rp 18.000</div>
+                </div>
               </div>
               <div class="card">
                 <img src="assets/banner.jpg" alt="Pisang Coklat" />
-                <span>Pisang Coklat</span>
+                <div class="card-content">
+                  <span>Pisang Coklat</span>
+                  <div class="price">Rp 15.000</div>
+                </div>
               </div>
               <div class="card">
                 <img src="assets/banner.jpg" alt="Kentang Goreng" />
-                <span>Kentang Goreng</span>
+                <div class="card-content">
+                  <span>Kentang Goreng</span>
+                  <div class="price">Rp 20.000</div>
+                </div>
               </div>
               <div class="card">
                 <img src="assets/banner.jpg" alt="Sate Ayam" />
-                <span>Sate Ayam</span>
+                <div class="card-content">
+                  <span>Sate Ayam</span>
+                  <div class="price">Rp 30.000</div>
+                </div>
               </div>
               <div class="card">
                 <img src="assets/banner.jpg" alt="Mie Goreng" />
-                <span>Mie Goreng</span>
+                <div class="card-content">
+                  <span>Mie Goreng</span>
+                  <div class="price">Rp 22.000</div>
+                </div>
               </div>
             </div>
           </div>
@@ -91,27 +109,45 @@
             <div class="carousel-track minuman-track">
               <div class="card">
                 <img src="assets/banner.jpg" alt="Kopi Hitam" />
-                <span>Kopi Hitam</span>
+                <div class="card-content">
+                  <span>Kopi Hitam</span>
+                  <div class="price">Rp 15.000</div>
+                </div>
               </div>
               <div class="card">
                 <img src="assets/banner.jpg" alt="Cappuccino" />
-                <span>Cappuccino</span>
+                <div class="card-content">
+                  <span>Cappuccino</span>
+                  <div class="price">Rp 25.000</div>
+                </div>
               </div>
               <div class="card">
                 <img src="assets/banner.jpg" alt="Teh Tarik" />
-                <span>Teh Tarik</span>
+                <div class="card-content">
+                  <span>Teh Tarik</span>
+                  <div class="price">Rp 18.000</div>
+                </div>
               </div>
               <div class="card">
                 <img src="assets/banner.jpg" alt="Susu Jahe" />
-                <span>Susu Jahe</span>
+                <div class="card-content">
+                  <span>Susu Jahe</span>
+                  <div class="price">Rp 20.000</div>
+                </div>
               </div>
               <div class="card">
                 <img src="assets/banner.jpg" alt="Es Lemon Tea" />
-                <span>Es Lemon Tea</span>
+                <div class="card-content">
+                  <span>Es Lemon Tea</span>
+                  <div class="price">Rp 15.000</div>
+                </div>
               </div>
               <div class="card">
                 <img src="assets/banner.jpg" alt="Matcha Latte" />
-                <span>Matcha Latte</span>
+                <div class="card-content">
+                  <span>Matcha Latte</span>
+                  <div class="price">Rp 28.000</div>
+                </div>
               </div>
             </div>
           </div>
@@ -229,87 +265,89 @@
         </div>
       </div>
     </footer>
+
+    <script>
+      function autoSlideCarouselInfinite(trackSelector, dotsSelector) {
+        const track = document.querySelector(trackSelector);
+        const cards = Array.from(track.children);
+        const cardCount = cards.length;
+        const cardWidth = cards[0].offsetWidth;
+        const gap = parseInt(getComputedStyle(track).gap) || 0;
+
+        // Clone all cards dan append ke track untuk loop seamless
+        cards.forEach((card) => {
+          const clone = card.cloneNode(true);
+          track.appendChild(clone);
+        });
+
+        let currentIndex = 0;
+        let totalCards = track.children.length; // dua kali lipat sekarang karena ada clone
+
+        const dotsContainer = document.querySelector(dotsSelector);
+        dotsContainer.innerHTML = "";
+
+        // Buat dot sebanyak card asli (bukan clone)
+        for (let i = 0; i < cardCount; i++) {
+          const dot = document.createElement("span");
+          dot.classList.add("dot");
+          if (i === 0) dot.classList.add("active");
+          dot.addEventListener("click", () => {
+            currentIndex = i;
+            updateCarousel(true);
+          });
+          dotsContainer.appendChild(dot);
+        }
+
+        function updateCarousel(jumpToIndex = false) {
+          // Hitung offset berdasarkan currentIndex, hanya dengan card asli
+          let offset = currentIndex * (cardWidth + gap);
+
+          track.style.transition = jumpToIndex ? "none" : "transform 0.5s ease";
+          track.style.transform = `translateX(-${offset}px)`;
+
+          // Update dots active hanya untuk index asli
+          dotsContainer.querySelectorAll(".dot").forEach((dot, i) => {
+            dot.classList.toggle("active", i === currentIndex % cardCount);
+          });
+        }
+
+        function moveNext() {
+          currentIndex++;
+
+          // Ketika sudah sampai setengah (akhir cards asli), langsung loncat ke awal tanpa animasi
+          if (currentIndex === cardCount) {
+            // pindah ke clone pertama (yang ke-(cardCount)), tanpa animasi
+            updateCarousel(true);
+
+            // segera setelah tanpa animasi, pindah ke posisi pertama dengan animasi lagi
+            // kita paksa browser rerender dulu dengan setTimeout 50ms supaya transisi bekerja
+            setTimeout(() => {
+              currentIndex = 0;
+              updateCarousel(false);
+            }, 50);
+          } else {
+            updateCarousel(false);
+          }
+        }
+
+        // Mulai interval
+        setInterval(moveNext, 3000);
+
+        // tampilkan posisi awal
+        updateCarousel(true);
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        autoSlideCarouselInfinite(".makanan-track", ".makanan-dots");
+        autoSlideCarouselInfinite(".minuman-track", ".minuman-dots");
+      });
+
+      document
+        .querySelector(".burger-menu")
+        .addEventListener("click", function () {
+          this.classList.toggle("active");
+          document.querySelector(".nav-links").classList.toggle("active");
+        });
+    </script>
   </body>
 </html>
-
-<script>
-  function autoSlideCarouselInfinite(trackSelector, dotsSelector) {
-    const track = document.querySelector(trackSelector);
-    const cards = Array.from(track.children);
-    const cardCount = cards.length;
-    const cardWidth = cards[0].offsetWidth;
-    const gap = parseInt(getComputedStyle(track).gap) || 0;
-
-    // Clone all cards dan append ke track untuk loop seamless
-    cards.forEach((card) => {
-      const clone = card.cloneNode(true);
-      track.appendChild(clone);
-    });
-
-    let currentIndex = 0;
-    let totalCards = track.children.length; // dua kali lipat sekarang karena ada clone
-
-    const dotsContainer = document.querySelector(dotsSelector);
-    dotsContainer.innerHTML = "";
-
-    // Buat dot sebanyak card asli (bukan clone)
-    for (let i = 0; i < cardCount; i++) {
-      const dot = document.createElement("span");
-      dot.classList.add("dot");
-      if (i === 0) dot.classList.add("active");
-      dot.addEventListener("click", () => {
-        currentIndex = i;
-        updateCarousel(true);
-      });
-      dotsContainer.appendChild(dot);
-    }
-
-    function updateCarousel(jumpToIndex = false) {
-      // Hitung offset berdasarkan currentIndex, hanya dengan card asli
-      let offset = currentIndex * (cardWidth + gap);
-
-      track.style.transition = jumpToIndex ? "none" : "transform 0.5s ease";
-      track.style.transform = `translateX(-${offset}px)`;
-
-      // Update dots active hanya untuk index asli
-      dotsContainer.querySelectorAll(".dot").forEach((dot, i) => {
-        dot.classList.toggle("active", i === currentIndex % cardCount);
-      });
-    }
-
-    function moveNext() {
-      currentIndex++;
-
-      // Ketika sudah sampai setengah (akhir cards asli), langsung loncat ke awal tanpa animasi
-      if (currentIndex === cardCount) {
-        // pindah ke clone pertama (yang ke-(cardCount)), tanpa animasi
-        updateCarousel(true);
-
-        // segera setelah tanpa animasi, pindah ke posisi pertama dengan animasi lagi
-        // kita paksa browser rerender dulu dengan setTimeout 50ms supaya transisi bekerja
-        setTimeout(() => {
-          currentIndex = 0;
-          updateCarousel(false);
-        }, 50);
-      } else {
-        updateCarousel(false);
-      }
-    }
-
-    // Mulai interval
-    setInterval(moveNext, 3000);
-
-    // tampilkan posisi awal
-    updateCarousel(true);
-  }
-
-  window.addEventListener("DOMContentLoaded", () => {
-    autoSlideCarouselInfinite(".makanan-track", ".makanan-dots");
-    autoSlideCarouselInfinite(".minuman-track", ".minuman-dots");
-  });
-
-  document.querySelector(".burger-menu").addEventListener("click", function () {
-    this.classList.toggle("active");
-    document.querySelector(".nav-links").classList.toggle("active");
-  });
-</script>
